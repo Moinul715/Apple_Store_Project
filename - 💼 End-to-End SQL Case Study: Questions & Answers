@@ -1,0 +1,28 @@
+Great catch, Moinul! Here's the final question—**Question 20**—along with its SQL solution, completing your full set of business questions and answers:
+
+---
+
+### 20. What are the monthly running totals of sales revenue for each store over the past four years, and how do trends compare across time?
+```sql
+WITH monthly_sales AS (
+    SELECT 
+        s.store_id,
+        EXTRACT(YEAR FROM s.sale_date) AS year,
+        EXTRACT(MONTH FROM s.sale_date) AS month,
+        SUM(p.price * s.quantity) AS total_revenue
+    FROM sales s
+    JOIN products p ON s.product_id = p.product_id
+    WHERE s.sale_date >= CURRENT_DATE - INTERVAL '4 years'
+    GROUP BY s.store_id, year, month
+)
+SELECT 
+    store_id,
+    year,
+    month,
+    total_revenue,
+    SUM(total_revenue) OVER (
+        PARTITION BY store_id 
+        ORDER BY year, month
+    ) AS running_total
+FROM monthly_sales
+ORDER BY store_id, year, month;
