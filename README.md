@@ -9,6 +9,7 @@ This project demonstrates advanced SQL querying techniques applied to a large-sc
 The objective is to extract actionable insights, optimize query performance, and apply analytical thinking to solve complex business questions using structured data.
 
 ---
+![Image](https://github.com/user-attachments/assets/af1b302b-1691-4305-8151-166c0dd0f57c)
 
 ## 🧱 Database Overview
 
