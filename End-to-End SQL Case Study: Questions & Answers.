@@ -1,12 +1,12 @@
-# 🧠 Apple Retail SQL Project  
-### Business Questions & SQL Solutions (1M+ Rows Dataset)
+🧠 Apple Retail SQL Project  
+**Business Questions & SQL Solutions (1M+ Rows Dataset)
 
 ---
 
-## 🟦 Foundational to Intermediate
+ 🟦 Foundational to Intermediate
 
-### 1. How many Apple retail stores operate in each country?
-```sql
+1. How many Apple retail stores operate in each country?
+
 SELECT 
     country,
     COUNT(store_id) AS total_stores
@@ -17,8 +17,8 @@ ORDER BY total_stores DESC;
 
 ---
 
-### 2. What is the total number of units sold by each store?
-```sql
+2. What is the total number of units sold by each store?
+
 SELECT 
     s.store_id,
     st.store_name,
@@ -31,8 +31,8 @@ ORDER BY total_units_sold DESC;
 
 ---
 
-### 3. How many sales transactions took place in December 2023?
-```sql
+3. How many sales transactions took place in December 2023?
+
 SELECT 
     COUNT(sale_id) AS total_sales
 FROM sales
@@ -41,8 +41,8 @@ WHERE TO_CHAR(sale_date, 'MM-YYYY') = '12-2023';
 
 ---
 
-### 4. Which stores have never had a warranty claim associated with their sales?
-```sql
+4. Which stores have never had a warranty claim associated with their sales?
+
 SELECT COUNT(*) 
 FROM stores
 WHERE store_id NOT IN (
@@ -54,8 +54,8 @@ WHERE store_id NOT IN (
 
 ---
 
-### 5. What percentage of all warranty claims were marked as “Warranty Void”?
-```sql
+5. What percentage of all warranty claims were marked as “Warranty Void”?
+
 SELECT 
     ROUND(
         COUNT(claim_id) * 100.0 / 
@@ -67,8 +67,8 @@ WHERE repair_status = 'Warranty Void';
 
 ---
 
-### 6. Which store recorded the highest total unit sales in the past 12 months?
-```sql
+6. Which store recorded the highest total unit sales in the past 12 months?
+
 SELECT 
     s.store_id,
     st.store_name,
@@ -83,8 +83,8 @@ LIMIT 1;
 
 ---
 
-### 7. How many unique products were sold in the last year?
-```sql
+7. How many unique products were sold in the last year?
+
 SELECT 
     COUNT(DISTINCT product_id) AS unique_products_sold
 FROM sales
@@ -93,8 +93,8 @@ WHERE sale_date >= CURRENT_DATE - INTERVAL '1 year';
 
 ---
 
-### 8. What is the average product price within each product category?
-```sql
+8. What is the average product price within each product category?
+
 SELECT 
     c.category_name,
     AVG(p.price) AS average_price
@@ -106,8 +106,8 @@ ORDER BY average_price DESC;
 
 ---
 
-### 9. How many warranty claims were submitted during the year 2020?
-```sql
+9. How many warranty claims were submitted during the year 2020?
+
 SELECT 
     COUNT(*) AS warranty_claims_2020
 FROM warranty
@@ -116,8 +116,8 @@ WHERE EXTRACT(YEAR FROM claim_date) = 2020;
 
 ---
 
-### 10. For each store, which day of the week had the highest total units sold?
-```sql
+10. For each store, which day of the week had the highest total units sold?
+
 SELECT * 
 FROM (
     SELECT 
@@ -133,10 +133,10 @@ WHERE rank = 1;
 
 ---
 
-## 🟨 Intermediate to Advanced
+🟨 Intermediate to Advanced
 
-### 11. Which product had the lowest total sales in each country, year by year?
-```sql
+11. Which product had the lowest total sales in each country, year by year?
+
 WITH product_rank AS (
     SELECT 
         st.country,
@@ -156,8 +156,8 @@ WHERE rank = 1;
 
 ---
 
-### 12. How many warranty claims were filed within 180 days of the original sale date?
-```sql
+12. How many warranty claims were filed within 180 days of the original sale date?
+
 SELECT 
     COUNT(*) AS claims_within_180_days
 FROM warranty w
@@ -167,8 +167,8 @@ WHERE w.claim_date - s.sale_date <= 180;
 
 ---
 
-### 13. How many warranty claims were linked to products launched within the last two years?
-```sql
+13. How many warranty claims were linked to products launched within the last two years?
+
 SELECT 
     p.product_name,
     COUNT(w.claim_id) AS total_claims
@@ -182,8 +182,8 @@ HAVING COUNT(w.claim_id) > 0;
 
 ---
 
-### 14. Which months in the past three years saw U.S. sales exceed 5,000 units?
-```sql
+14. Which months in the past three years saw U.S. sales exceed 5,000 units?
+
 SELECT 
     TO_CHAR(s.sale_date, 'MM-YYYY') AS month,
     SUM(s.quantity) AS total_units
@@ -197,8 +197,8 @@ HAVING SUM(s.quantity) > 5000;
 
 ---
 
-### 15. Which product category had the highest number of warranty claims in the last two years?
-```sql
+15. Which product category had the highest number of warranty claims in the last two years?
+
 SELECT 
     c.category_name,
     COUNT(w.claim_id) AS total_claims
@@ -214,10 +214,10 @@ LIMIT 1;
 
 ---
 
-## 🟥 Advanced Analytical Challenges
+🟥 Advanced Analytical Challenges
 
-### 16. What is the likelihood (in percentage) of a warranty claim occurring after a purchase, broken down by country?
-```sql
+16. What is the likelihood (in percentage) of a warranty claim occurring after a purchase, broken down by country?
+
 SELECT 
     country,
     total_units_sold,
@@ -238,8 +238,8 @@ ORDER BY claim_probability DESC;
 
 ---
 
-### 17. What is the year-over-year sales growth ratio for each store?
-```sql
+17. What is the year-over-year sales growth ratio for each store?
+
 WITH yearly_sales AS (
     SELECT 
         s.store_id,
@@ -271,8 +271,8 @@ WHERE last_year_sales IS NOT NULL;
 
 ---
 
-### 18. How do warranty claims vary across different product price segments for items sold in the last five years?
-```sql
+18. How do warranty claims vary across different product price segments for items sold in the last five years?
+
 SELECT 
     CASE
         WHEN p.price < 500 THEN 'Low Range'
@@ -289,8 +289,8 @@ GROUP BY price_segment;
 
 ---
 
-### 19. Which store has the highest proportion of “Paid Repaired” claims relative to its total warranty claims?
-```sql
+19. Which store has the highest proportion of “Paid Repaired” claims relative to its total warranty claims?
+
 WITH paid AS (
     SELECT 
         s.store_id,
@@ -316,16 +316,9 @@ SELECT
     ROUND(p.paid_repaired::NUMERIC / t.total_claims * 100, 2) AS paid_repair_percentage
 FROM paid p
 JOIN total t ON p.store_id = t.store_id
-JOIN stores st ON st.store_id = t.store_id
-ORDER BY paid_repair_percentage DESC
 
+20. What are the monthly running totals of sales revenue for each store over the past four years, and how do trends compare across time?
 
-Great catch, Moinul! Here's the final question—**Question 20**—along with its SQL solution, completing your full set of business questions and answers:
-
----
-
-### 20. What are the monthly running totals of sales revenue for each store over the past four years, and how do trends compare across time?
-```sql
 WITH monthly_sales AS (
     SELECT 
         s.store_id,
@@ -348,4 +341,3 @@ SELECT
     ) AS running_total
 FROM monthly_sales
 ORDER BY store_id, year, month;
-
