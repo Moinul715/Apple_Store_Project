@@ -63,7 +63,7 @@ The project is structured into three tiers of complexity to showcase a progressi
   - Beyond 18 months  
 
 ---
-![Image](https://github.com/user-attachments/assets/e0e3d20b-9e15-4d03-884a-c6fd8f7324cc)
+![Image](https://github.com/user-attachments/assets/7731dd32-1a68-484b-b715-d87d09b2a97a)
 
 ## 🗂️ Database Schema Overview
 
